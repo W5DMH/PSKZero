@@ -1,15 +1,30 @@
 #!/bin/bash
 counter=0
 beacon=0
+beacon2=0
 countdownnum=21
 countdowntime=$(date +%M%S)
 fileexist='true'
+beacon=0
+
+function  transmit {
+if [ $beacon -eq 1 ]
+then 
+sudo cp pskbeacon.txt /home/pi/psk31lx/TX/pskbeacon.txt
+#echo "file copied"
+#echo $beacon
+sleep 1
+beacon=0
+#else 
+#echo "cycle without beacon 0"
+fi
+}
 
 dialog   --title "Beacon Status" \
-               --infobox "\n The beacon is preparing to start, please standby" 10 46
+               --infobox "\n The beacon is preparing to start, please standby" $
 
 
-while [ ! -f beaconreceived.txt ];
+while [ ! -f /home/pi/psk31lx/RX/pskreceived.txt ];
 do
 countdownnum=21
 counter=$(($counter+1))
@@ -21,32 +36,32 @@ countdowntime=$(($countdowncalc/60))
 if [ $counter -gt 20 ]
 then
 beacon=$(($beacon+1))
-
+beacon2=$(($beacon2+1))
 counter=0
+transmit
 else
-
-
      sleep 30
      dialog         --title "Beacon Status" \
-                    --infobox "beacon is transmitting every 1o minutes, \n \n the beacon has been transmitted $beacon times \n \n The next beacon is in $countdowntime min" 10 46
+                    --infobox " Beacon will TX every 10 minutes, \n \n Beacon h$
 fi
-     if [ -f beaconreceived.txt ]
+     if [ -f /home/pi/psk31lx/RX/pskreceived.txt ]
      then
      dialog   --title "Beacon has Stopped!" \
               --ok-label "Close Message" \
-              --textbox "beaconreceived.txt" 8 46
+              --textbox "/home/pi/psk31lx/RX/pskreceived.txt" 8 46
      fileexist='true'
      else
      fileexist='false'
      fi
-ret=$?
-leave=255
-    if [ $ret -eq $leave ] 
-    then 
-    echo "true"
-    fi  
-
-
 
 done
-bash PBeaconstopped.sh
+
+read -s -n1  key
+
+  case $key in
+     $'\e')  break ;; 
+             
+  esac
+
+bash /home/pi/PSKZero/PBeaconstopped.sh
+
