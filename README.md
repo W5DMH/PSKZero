@@ -15,3 +15,5 @@ sudo apt-get install dialog
 sudo git clone http://github.com/w5dmh/PSKZero.git 
 
 
+issues and questions can be directed to Dan w5dmh@yahoo.com 
+
