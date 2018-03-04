@@ -21,7 +21,7 @@ fi
 }
 
 dialog   --title "Beacon Status" \
-               --infobox "\n The beacon is preparing to start, please standby" $
+               --infobox "\n The beacon is preparing to start, please standby" 10 46
 
 
 while [ ! -f /home/pi/psk31lx/RX/pskreceived.txt ];
@@ -40,9 +40,11 @@ beacon2=$(($beacon2+1))
 counter=0
 transmit
 else
+
+
      sleep 30
      dialog         --title "Beacon Status" \
-                    --infobox " Beacon will TX every 10 minutes, \n \n Beacon h$
+                    --infobox " Beacon will TX every 10 minutes, \n \n Beacon has transmitted $beacon2 times \n \n Next beacon is in $countdowntime min \n\n Click CTRL/C to exit" 10 46
 fi
      if [ -f /home/pi/psk31lx/RX/pskreceived.txt ]
      then
@@ -64,4 +66,3 @@ read -s -n1  key
   esac
 
 bash /home/pi/PSKZero/PBeaconstopped.sh
-

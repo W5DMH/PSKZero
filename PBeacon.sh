@@ -10,14 +10,14 @@ message=""
 # open fd
 exec 3>&1
 # Store data to $VALUES variable
-VALUES=$(dialog --extra-button --extra-label "Beacon Off" --ok-label "Beacon On$
-          --backtitle "PSKBeacon Setup" \
-          --title "PSKBeacon" \
-          --form "Create a new beacon" \
+VALUES=$(dialog --extra-button --extra-label "Beacon Off" --ok-label "Beacon On " \
+	  --backtitle "PSKBeacon Setup" \
+	  --title "PSKBeacon" \
+	  --form "Create a new beacon" \
 12 44 0 \
-        "From Callsign:" 1 1    "$call2"        1 14 8 0 \
-        "To Callsign:"    3 1   "$call1"        3 14 8 0 \
-         "Message:"    5 1      "$message"      5 14 26 0 \
+	"From Callsign:" 1 1	"$call2" 	1 14 8 0 \
+        "To Callsign:"    3 1	"$call1"  	3 14 8 0 \
+	 "Message:"    5 1	"$message"  	5 14 26 0 \
 2>&1 1>&3) 
 
 ret=$?
@@ -53,8 +53,4 @@ elif [[ "$choice" = 'STOP' ]]; then
   [ -e /home/pi/PSKZero/pskbeacon.txt ] && rm /home/pi/PSKZero/pskbeacon.txt
   bash PBeacon.sh
 fi
-
-
-
-
 
