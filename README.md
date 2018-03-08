@@ -1,4 +1,6 @@
-# PSKZero for Raspberry Pi Zero 
+# PSKZero for Raspberry Pi Zero PSK31
+A minilalist PSK31 transmitter software. 
+
 This is a group of scripts that are designed to generate a beacon sentence for PSK31lx (extended version) which will run on a Raspberry Pi Zero in console mode. 
 
 Requirements are Jessie or Stretch (I have not tried Wheezy, in theory it should work). 
